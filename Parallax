@@ -28,3 +28,17 @@ void UpdateBackground(Background &back, float cameraX)
 }
 
 https://www.opengl.org/sdk/docs/tutorials/TyphoonLabs/Chapter_4.pdf
+-------------------------------------------------------------------------------------------------------------------------------
+You want to create a couple of variables representing the camera position - cameraX and cameraY. You then want to set these to equal the position of your character, possibly adding on a bit extra in the direction of movement.
+
+To position the main layer, it's just:
+
+mainLayer.x = -cameraX;
+
+for the middle layer, something like:
+
+middleLayer.x = -cameraX * 0.5;
+
+for the far layer:
+
+farLayer.x = -cameraX * 0.2;
