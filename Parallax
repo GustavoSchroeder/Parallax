@@ -1,0 +1,30 @@
+Cmomo seria para fazer um parallax? 
+
+void UpdateBackground(Background &back)
+{
+    back.x += back.velX * back.dirX;
+    if(back.x + back.width <= 0)
+        back.x = 0;
+}
+void DrawBackground(Background &back)
+{
+    draw_bitmap(back.image, back.x, back.y, 0);
+
+    if(back.x + back.width < WIDTH)
+        draw_bitmap(back.image, back.x + back.width, back.y, 0);
+}
+So this draws a parallax effect w
+
+____________________
+
+Parallax backgrounds are divorced from reality, you don't need velocities and directions. What you do need is to base the background's X on the camera's position and modified with multiplier to offset the background more slowly so it looks like it is very far away. Different layers of background can look closer by making this magic number bigger, so instead of 0.1f for far away use 0.3f for up close, etc...
+
+An example might look like:
+
+void UpdateBackground(Background &back, float cameraX)
+{
+    back.x = cameraX * 0.1f; // magic number to make the background move slowly
+    back.x = fmod( back.x, back.width );
+}
+
+https://www.opengl.org/sdk/docs/tutorials/TyphoonLabs/Chapter_4.pdf
